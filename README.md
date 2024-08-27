@@ -8,15 +8,23 @@
 ## 🛠️Funcionalidades do projeto
 ### *O Banco de Dados do E-commerce permite:*
 
- `Armazenar informações:` sobre os produtos da empresa, como quantidade e categoria
+ `Armazenar informações:` Sobre os produtos da empresa, como quantidade e categoria
  ao qual esse produto pertence.
 
-`Armazenar informações:` dos clientes,como cpf,pedido,endereço e telefone
+`Armazenar informações:` Dos clientes,como cpf,pedido,endereço e telefone.
 
-`Cada pedido:` consegue conter um ou mais produtos, e a data em que foi realizado e
+`Cada pedido:` Consegue conter um ou mais produtos, e a data em que foi realizado e
 por quem foi realizado,além da forma de pagamento.
 
-`Nota fiscal:` Mostra a nota fiscal do produto,e suas informações.
+`Nota fiscal:` Mostra a nota fiscal do produto,e suas informações. 
+
+`Registro:` Exclusão de algum registro em uma tabela, atualização de registro.
+
+`Comando:` 1 Comando usando o count e group by.
+
+`SQL:` 1 SQL para a construção de nota fiscal.
+
+`Junção:` 3 Tipos de junção
 
 ## 📊Diagrama 
   > Diagrama com normalização, mostrando o relacionamento entre as entidades 
