@@ -27,8 +27,13 @@ por quem foi realizado,além da forma de pagamento.
 `Junção:` 3 Tipos de junção
 
 ## 📊Diagrama 
-  > Diagrama com normalização, mostrando o relacionamento entre as entidades 
-  
+
+> Diagrama sem normalização
+
+![frist](https://github.com/user-attachments/assets/d011e506-ced0-465c-837e-1819c713f302)
+
+> Diagrama com normalização, mostrando o relacionamento entre as entidades de uma forma mais clara e eficiente 
+
 ![projeto](https://github.com/user-attachments/assets/273a21c6-589c-4ff1-af73-ef16f83d3f18)
 
 
