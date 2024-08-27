@@ -1,0 +1,237 @@
+        Trabalho de Banco de Dados (Do grupo 1)
+____________________________________________________________
+                           feito por:
+                    João Gabriel Tavares Siqueira
+                    Murilo Bongard Nicolau
+                    Eduarda Pinho dos Santos
+                    Júlia Henriques de Azevedo Xavier
+                    Guilherme Senna Pires
+                    Eric Damião Duarte
+_____________________________________________________________
+
+CREATE TABLE categorias(
+ID SERIAL PRIMARY KEY,
+nome VARCHAR(200) NOT NULL UNIQUE,
+descricao TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE produtos(
+ID SERIAL PRIMARY KEY,
+nome VARCHAR (200) NOT NULL UNIQUE,
+descricao TEXT NOT NULL UNIQUE,
+data_fabricacao DATE NOT NULL,
+preco REAL NOT NULL,
+id_categorias INTEGER REFERENCES categorias (ID) 
+);
+
+CREATE TABLE estoque(
+id serial primary key,
+quantidade_estoque INTEGER NOT NULL,
+id_produtos integer references produtos(id)
+);
+
+CREATE TABLE funcionarios(
+ID SERIAL PRIMARY KEY,
+cpf VARCHAR(14) NOT NULL UNIQUE,
+nome VARCHAR(100) NOT NULL,
+id_produtos INTEGER REFERENCES produtos(ID) 
+);
+
+CREATE TABLE contatos(
+ID SERIAL PRIMARY KEY,
+celular VARCHAR (20) UNIQUE,
+telefone VARCHAR (50) UNIQUE 
+);
+
+CREATE TABLE clientes(
+ID SERIAL PRIMARY KEY,
+cpf VARCHAR(14) NOT NULL UNIQUE,
+nome VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL UNIQUE,
+nome_usuario VARCHAR(100) NOT NULL UNIQUE,
+data_nascimento DATE NOT NULL,
+id_contatos INTEGER REFERENCES contatos(ID) 
+);
+
+CREATE TABLE clientes_endereco(
+ID SERIAL PRIMARY KEY,
+rua VARCHAR (100) NOT NULL,
+numero INTEGER NOT NULL,
+bairro VARCHAR (200) NOT NULL,
+cidade VARCHAR (200) NOT NULL,
+estado VARCHAR  (2) NOT NULL,
+cep VARCHAR (9) NOT NULL,
+complemento TEXT,
+id_clientes INTEGER REFERENCES clientes(ID) 
+);
+
+CREATE TABLE pedidos(
+ID SERIAL PRIMARY KEY,
+data_pedido DATE NOT NULL,
+forma_pagamento VARCHAR (50) NOT NULL,
+id_clientes INTEGER REFERENCES clientes(ID)
+);
+
+CREATE TABLE pedidos_produtos(
+id serial primary key,
+id_pedido INTEGER REFERENCES pedidos(ID),
+id_produto INTEGER REFERENCES produtos(ID),
+qnt_produtos INTEGER NOT NULL
+);
+
+DROP TABLE pedidos_produtos;
+DROP TABLE pedidos;
+DROP TABLE clientes_endereco;
+DROP TABLE clientes;
+DROP TABLE contatos;
+DROP TABLE funcionarios;
+DROP TABLE estoque;
+DROP TABLE produtos;
+DROP TABLE categorias;
+___________________________________________________
+
+INSERT INTO categorias (nome, descricao) VALUES
+('Biscoitos', 'Biscoitos crocantes, deliciosos, perfeitos para qualquer ocasião.'),
+('Condimentos', 'Um molho clássico feito a partir de tomates, cozidos e reduzidos a uma consistência espessa.'),
+('Sucos', 'Um suco natural de frutas'),
+('Frios', 'Alimentos delicados que precisam ser mantidos a baixas temperaturas para garantir sua frescura e segurança alimentar.'),
+('Laticínios', 'Produto derivado de leite'),
+('Frutas', 'Frutas sem agrotóxico'),
+('Naturais', 'Alimento 100% natural'),
+('Grãos', 'Pequenas sementes duras e secas que vêm de plantas cultivadas para alimentação');
+
+
+INSERT INTO produtos (nome, descricao, data_fabricacao, preco, id_categorias) VALUES
+('Biscoito Integral de Aveia', 'Biscoito crocante feito com aveia integral e mel.', '12/08/2024', '6.50', 1),
+('Molho de Tomate Orgânico', 'Molho de tomate orgânico, sem conservantes',  '20/08/2024', '8.50',2),
+('Suco de Laranja Natural', 'Suco 100% natural de laranja, sem adição de açúcar',  '25/08/2024', '5.90',3),
+('Queijo Muçarela', 'Queijo muçarela fatiado, ideal para lanches e pizzas',  '10/08/2024', '18.00',4),
+('Leite Desnatado', 'Leite desnatado UHT em embalagem de 1 litro',  '05/08/2024', '4.80',5),
+('Presunto', 'Presunto fatiado, ideal para lanches',  '10/08/2024', '20.00',4),
+('Iogurte Natural', 'Iogurte natural sem açúcar, ideal para dietas saudáveis',  '22/08/2024', '3.40',5 ),
+('Banana', 'Fruta sem agrotóxico',  '15/08/2024', '5.00',6),
+('Mel Puro', 'Mel puro, colhido de abelhas silvestres.',  '02/08/2024', '12.00',7),
+('Arroz Integral', 'Arroz integral longo, rico em fibras e nutrientes.', '08/07/2024', '9.20',8);
+
+INSERT INTO estoque (quantidade_estoque, id_produtos) VALUES
+(200 ,1),
+(200 ,2),
+(200 ,3),
+(200 ,4),
+(200 ,5),
+(200 ,6),
+(200 ,7),
+(200 ,8),
+(200 ,9),
+(200 ,10);
+
+INSERT INTO funcionarios (nome, cpf) VALUES
+('Pablo','123.456.789-55'),
+('Alexandre','123.456.789-66'),
+('Nicolas','123.456.789-77'),
+('Milton','123.456.789-88'),
+('Michele','123.456.789-99');
+
+
+----------------------------------------------------------
+INSERT INTO contatos (celular, telefone) VALUES
+('(11) 91234-5678','(41) 92345-6789'),
+('(21) 98765-4321','(51) 93456-7890');
+
+
+INSERT INTO contatos (celular) VALUES
+('(31) 99876-5432'),
+('(11) 3234-5678');
+
+INSERT INTO contatos (telefone) VALUES
+('(21) 2456-7890');
+----------------------------------------------------------
+INSERT INTO clientes(nome, cpf, email, nome_usuario, data_nascimento) VALUES 
+('Murilo Bongard Nicolau', '123.456.789-00', 'murilobongard@gmail.com', 'Murilo', '05/01/2005'),
+('João Gabriel Tavares', '123.456.789-11', 'joaogabrieltavares@gmail.com', 'Tavares', '06/10/2006'),
+('Eduarda Pinho Santos', '123.456.789-22', 'eduardapinho@gmail.com', 'Eduarda', '12/11/2004'),
+('Guilherme Senna Pires', '123.456.789-33', 'guilhermesenna@gmail.com', 'Guilherme', '28/06/2000'),
+('Júlia Henriques Azevedo Xavier', '123.456.789-44', 'juliaxavier@gmail.com', 'Julia', '30/08/2005');
+
+
+INSERT INTO clientes_endereco (rua, numero, bairro, cidade, estado, cep, id_clientes) VALUES
+('Avenida das Palmeiras', '842', 'Centro', 'Rio de Janeiro', 'RJ', '20040-001', 1),
+('Rua do Sol', '123', 'Bela Vista', 'Belo Horizonte', 'MG', '30180-010', 2),
+('Rua das Margaridas', '456', 'Vila Nova', 'Curitiba', 'PR', '80060-002',3),
+('Alameda dos Ipês', '789', 'Parque das Laranjeiras', 'Manaus', 'AM', '69058-040', 4),
+('Rua das Flores', '357', 'Jardim Primavera', 'São Paulo', 'SP', '01234-567', 5);
+
+
+INSERT INTO pedidos (data_pedido, forma_pagamento, id_clientes) VALUES 
+('2024-08-30','PIX', 1),
+('2024-08-31','CARTAO', 3),
+('2024-09-02','BOLETO', 2),
+('2024-09-15','PIX', 5),
+('2024-10-01','DINHEIRO', 4);
+______________________________________
+update funcionarios
+set nome = 'Douglas'
+where id = 2;
+
+--Um comando SQL de exclusão de algum registro em uma tabela
+
+delete from produtos
+where id = 1;
+
+--5 SQLs de consulta
+
+--a. Pelo menos 2 com algum tipo de junção
+select clientes.nome, contatos.telefone, contatos.celular from contatos
+inner join clientes on contatos.id = clientes.id;
+
+select clientes.nome, contatos.telefone from contatos
+left join clientes on contatos.id = clientes.id
+where contatos.telefone IS NOT NULL;
+
+select  clientes.nome, pedidos.data_pedido, pedidos.forma_pagamento from pedidos
+inner join clientes on clientes.id = pedidos.id;
+
+--b. Pelo menos 1 com usando count e group by
+SELECT categorias.nome, COUNT (estoque.quantidade_estoque)
+FROM categorias 
+inner join produtos on produtos.id_categorias = categorias.id
+inner join estoque on estoque.id_produtos = produtos.id
+GROUP BY categorias.nome;
+
+--c. 1 SQL para construção de nota fiscal
+
+SELECT 
+clientes.nome AS Nome_Cliente,
+clientes.cpf AS CPF_Cliente,
+clientes_endereco.rua AS Rua,
+clientes_endereco.numero AS Numero,
+clientes_endereco.bairro AS Bairro,
+clientes_endereco.cidade AS Cidade,
+clientes_endereco.estado AS Estado,
+clientes_endereco.cep AS CEP,
+pedidos.data_pedido AS Data_Pedido,
+pedidos.forma_pagamento AS Forma_Pagamento,
+produtos.nome AS Nome_Produto,
+pedidos_produtos.qnt_produtos AS Quantidade,
+produtos.preco AS Preco_Unitario,
+(pedidos_produtos.qnt_produtos * produtos.preco) AS Total_Produto
+FROM 
+pedidos
+INNER JOIN 
+clientes ON pedidos.id_clientes = clientes.id
+INNER JOIN 
+clientes_endereco ON clientes.id = clientes_endereco.id_clientes
+INNER JOIN 
+pedidos_produtos ON pedidos.id = pedidos_produtos.id_pedido
+INNER JOIN 
+produtos ON pedidos_produtos.id_produto = produtos.id
+WHERE 
+pedidos.id = 2;
+
+INSERT INTO pedidos_produtos (qnt_produtos, id_produto, id_pedido) VALUES 
+('2', 5, 1),
+('4', 4, 2),
+('6', 3, 3),
+('8', 2, 4),
+('10', 1, 5);
+___________________________________
